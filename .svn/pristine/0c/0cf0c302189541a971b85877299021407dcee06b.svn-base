@@ -1,0 +1,54 @@
+package de.kartellamt.view.controller;
+
+import java.net.URL;
+import java.util.HashSet;
+import java.util.ResourceBundle;
+
+import de.kartellamt.commandline.ProjectSelection;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
+public class ProjectSelectionViewController implements Initializable {
+	
+	private String selectedProject;
+	
+	
+	@FXML
+	private Button bstart;
+	
+	@FXML
+	private Button babbruch;
+	
+	@FXML
+	private ListView<String> listviewprojects;
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		bstart.setDisable(true);
+		listviewprojects.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+		listviewprojects.setItems( generateJList());
+		listviewprojects.getSelectionModel().selectedItemProperty().addListener((event) -> {
+			
+			bstart.setDisable(false);	
+		});
+		
+		babbruch.setOnAction((event) -> {
+		Platform.exit();
+		});
+	}
+	
+	private ObservableList<String> generateJList() {
+		ProjectSelection projectSelection = new ProjectSelection();
+		HashSet<String> autoriztedProjects = projectSelection.autorizatedProjects();
+		ObservableList<String> items =FXCollections.observableArrayList (autoriztedProjects);
+		return items;
+	}
+	
+	
+
+}

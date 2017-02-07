@@ -1,0 +1,43 @@
+package de.kartellamt.start;
+	
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+
+
+
+public class ViewProjectSelection extends Application {
+	private static String dbUrl;
+	
+	@Override
+	public void start(Stage primaryStage) {
+		try {
+			BorderPane pane = (BorderPane) FXMLLoader.load(ViewProjectSelection.class.getResource("table-project-selection.fxml"));
+			 Scene scene = new Scene(pane);
+	            primaryStage.setScene(scene);
+	            primaryStage.setTitle("Project selection");
+	            primaryStage.show();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static  void launchViewProjectSelection () {
+		launch();
+	}
+	
+	public static void main(String[] args) {
+		launchViewProjectSelection ();
+	}
+
+	public static String getDbUrl() {
+		return dbUrl;
+	}
+
+	public static void setDbUrl(String dbUrl) {
+		ViewProjectSelection.dbUrl = dbUrl;
+	}
+}
